@@ -1,0 +1,45 @@
+# Nome do fluxo de trabalho que aparecerá na aba "Actions" do GitHub
+name: Deploy to GitHub Pages
+
+# Gatilho: Executar este workflow sempre que houver um push na branch 'main'
+on:
+  push:
+    branches:
+      - main
+
+# Permissões necessárias para que a Action possa modificar o deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Tarefas a serem executadas
+jobs:
+  # Nome do job (pode ser qualquer um)
+  deploy:
+    # Define o ambiente de deployment para GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # O tipo de máquina virtual para executar o job
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Baixa o código do seu repositório para a máquina virtual
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente do GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 3. Faz o "upload" dos seus arquivos (HTML, assets, etc.) como um artefato
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Faz upload de tudo que está na raiz do projeto
+          path: '.'
+
+      # 4. Publica (deploy) o artefato no GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,13 @@
+```json
+{
+  "clientName": "Padaria Sonho Doce",
+  "clientCnpj": "33.444.555/0001-66",
+  "clientAddress": "Rua das Flores, 123, São Paulo - SP",
+  "repName": "Sra. Ana",
+  "repCpf": "111.222.333-44",
+  "diagnosis": "problema sério de controle de estoque. Perda de produtos por validade e falta de controle de compras de insumos. Todo o controle é feito em um caderno, o que causa muitos erros.",
+  "actionPlan": ["mapear os processos", "implementar um controle financeiro básico"],
+  "investmentValue": 5000,
+  "paymentTerms": "50/50"
+}
+```

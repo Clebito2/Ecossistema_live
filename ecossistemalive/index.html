@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Propostas AgeQuodAgis</title>
+    <link href="./assets/output.css" rel="stylesheet">
+    <style>
+        body { background-color: #06192a; color: #f4f4f4; }
+        textarea, pre, .preview-box { background-color: #1a2b3c; border-color: #3a4b5c; }
+        button { background-color: #00e800; color: #06192a; }
+        .diagnosis-card { background-color: rgba(0, 232, 0, 0.05); border-left: 4px solid #00e800; }
+        iframe { width: 100%; height: 60vh; border: 1px solid #3a4b5c; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="p-8 font-sans">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Painel de Geração de Propostas</h1>
+
+        <div class="mb-4">
+            <label for="transcription" class="block mb-2 text-sm font-medium">1. Cole a transcrição da reunião aqui:</label>
+            <textarea id="transcription" rows="8" class="block p-2.5 w-full text-sm rounded-lg border focus:ring-blue-500 focus:border-blue-500"></textarea>
+        </div>
+
+        <button id="generateBtn" class="w-full font-bold py-3 px-4 rounded text-lg">
+            Gerar Proposta Completa
+        </button>
+
+        <div id="loader" class="text-center my-6 hidden">
+            <p>Processando... O Gemini está trabalhando. Isso pode levar um minuto.</p>
+        </div>
+        
+        <div id="results" class="mt-8 hidden">
+            <!-- SEÇÃO DE DIAGNÓSTICO -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">2. Diagnóstico Extraído (Valide os Dados)</h2>
+                <div id="diagnosis-display" class="p-4 rounded-lg diagnosis-card">
+                    <!-- Conteúdo do diagnóstico será inserido aqui -->
+                </div>
+            </div>
+
+            <!-- SEÇÃO DE PRÉ-VISUALIZAÇÃO -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">3. Pré-Visualização da Proposta</h2>
+                <iframe id="proposal-preview" srcdoc="<p class='p-4'>A pré-visualização da proposta aparecerá aqui...</p>"></iframe>
+            </div>
+
+            <!-- SEÇÃO DOS CÓDIGOS GERADOS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h2 class="text-xl font-bold mb-2">Código: index.html</h2>
+                    <pre id="mainPageCode" class="w-full h-96 overflow-auto p-4 border rounded-lg"></pre>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-2">Código: contrato.html</h2>
+                    <pre id="contractPageCode" class="w-full h-96 overflow-auto p-4 border rounded-lg"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const transcriptionInput = document.getElementById('transcription');
+        const loader = document.getElementById('loader');
+        const resultsDiv = document.getElementById('results');
+        const diagnosisDisplay = document.getElementById('diagnosis-display');
+        const proposalPreview = document.getElementById('proposal-preview');
+        const mainPageCode = document.getElementById('mainPageCode');
+        const contractPageCode = document.getElementById('contractPageCode');
+
+        generateBtn.addEventListener('click', async () => {
+            const transcription = transcriptionInput.value;
+            if (!transcription.trim()) {
+                alert('Por favor, cole uma transcrição.');
+                return;
+            }
+
+            loader.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+            generateBtn.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:3000/gerar-proposta', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ transcricao: transcription })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ocorreu um erro no servidor: ${await response.text()}`);
+                }
+                
+                const data = await response.json();
+
+                // 1. Preencher a seção de Diagnóstico
+                diagnosisDisplay.innerHTML = `
+                    <p><strong>Cliente:</strong> ${data.diagnostico.clientName || 'Não encontrado'}</p>
+                    <p><strong>CNPJ:</strong> ${data.diagnostico.clientCnpj || 'Não encontrado'}</p>
+                    <p><strong>Representante:</strong> ${data.diagnostico.repName || 'Não encontrado'}</p>
+                    <p><strong>Valor:</strong> ${data.diagnostico.investmentValue || 'Não encontrado'}</p>
+                    <hr class="my-2 border-gray-600">
+                    <p><strong>Diagnóstico:</strong> ${data.diagnostico.diagnosis || 'Não encontrado'}</p>
+                `;
+
+                // 2. Preencher a pré-visualização da proposta
+                proposalPreview.srcdoc = data.paginaPrincipalHTML;
+
+                // 3. Preencher os blocos de código
+                mainPageCode.textContent = data.paginaPrincipalHTML;
+                contractPageCode.textContent = data.paginaContratoHTML;
+
+                resultsDiv.classList.remove('hidden');
+
+            } catch (error) {
+                alert('Falha ao gerar proposta: ' + error.message);
+            } finally {
+                loader.classList.add('hidden');
+                generateBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
