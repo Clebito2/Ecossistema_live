@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Prático: Implantação do Programa 5S - Live Consultoria</title>
+    
+    <!-- Importação das Fontes (Poppins e Merriweather) conforme Guia de Estilo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. Núcleo da Identidade Visual (Tokens) --- */
+        :root {
+            /* Paleta Principal */
+            --primary-bg: #06192a;     /* Azul Petróleo - Fundo principal */
+            --card-bg: #0A243D;        /* Azul Escuro - Fundo de cards */
+            --accent-color: #00e800;   /* Verde Vibrante - Destaques, links, titulos */
+            
+            /* Textos */
+            --text-primary: #ffffff;   /* Branco - Textos principais */
+            --text-muted: #cccccc;     /* Cinza Claro */
+            --text-subtle: #a0a0a0;    /* Cinza - Textos secundários e parágrafos */
+            
+            /* Bordas e Efeitos */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7); /* Sombra para o verde vibrante */
+
+            /* Tipografia */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+
+            /* Tamanhos de Fonte (Mobile-First) */
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(1.8rem, 4vw, 2.2rem);
+            --font-size-h1: clamp(2.2rem, 5vw, 2.8rem);
+
+            /* Espaçamento */
+            --space-sm: 1rem;  /* 16px */
+            --space-md: 2rem;  /* 32px */
+            --space-lg: 4rem;  /* 64px */
+            --space-xl: 6rem;  /* 96px */
+
+            /* Outros */
+            --border-radius: 12px;
+            --transition-speed: 0.3s ease;
+        }
+
+        /* --- 2. Reset Básico e Estilos Globais --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-subtle);
+            line-height: 1.7;
+            
+            /* Textura de Fundo (Obrigatória) */
+            background-color: var(--primary-bg); /* Fallback */
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed; /* Efeito de paralaxe */
+            
+            overflow-x: hidden;
+        }
+
+        /* --- 3. Estrutura e Layout (Header, Main, Footer) --- */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--space-sm) 0;
+            z-index: 1000;
+            transition: background-color var(--transition-speed);
+            
+            /* Efeito de blur conforme Guia */
+            background-color: rgba(6, 25, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        main {
+            padding-top: calc(80px + var(--space-md)); /* 80px = altura aprox. do header */
+            padding-bottom: var(--space-lg);
+        }
+
+        section {
+            padding: var(--space-lg) 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: var(--space-md) var(--space-sm);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin-top: var(--space-sm);
+        }
+
+        /* --- 4. Tipografia --- */
+        h1, h2, h3 {
+            font-family: var(--font-primary);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: var(--font-size-h1);
+            color: var(--accent-color);
+            text-shadow: var(--accent-glow);
+        }
+
+        h2 {
+            font-size: var(--font-size-h2);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: var(--font-size-h3);
+            color: var(--text-muted);
+            margin-top: var(--space-md);
+        }
+
+        p {
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-base);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: opacity var(--transition-speed);
+        }
+
+        a:hover, a:focus {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        ul, ol {
+            margin-left: var(--space-sm);
+            padding-left: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: var(--font-size-base);
+        }
+
+        /* --- 5. Componentes --- */
+
+        /* Card Padrão (.card) */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Estados de Interação do Card */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), var(--accent-glow);
+        }
+
+        /* Acessibilidade: Foco Visível */
+        a:focus-visible, button:focus-visible, .card:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+
+        /* Card de Diagnóstico (Variação) */
+        .card-diagnostic {
+            border-left: 4px solid var(--accent-color);
+            background: linear-gradient(90deg, rgba(0, 232, 0, 0.05), var(--card-bg) 30%);
+        }
+
+        .card-diagnostic h3, .card-diagnostic h2 {
+            color: var(--accent-color);
+        }
+
+        /* Fonte Secundária para Diagnóstico */
+        .font-secondary {
+            font-family: var(--font-secondary);
+            font-size: 1.2rem; /* Um pouco maior para leitura */
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* Estilização de Tabelas */
+        .table-wrapper {
+            overflow-x: auto; /* Responsividade para tabelas */
+            -webkit-overflow-scrolling: touch;
+            margin-top: var(--space-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+        }
+
+        th, td {
+            padding: var(--space-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: rgba(10, 36, 61, 0.8);
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1rem;
+            position: sticky; /* Cabeçalho fixo na rolagem horizontal */
+            top: 0;
+        }
+        
+        tr:last-child th,
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        tr:hover {
+            background-color: rgba(6, 25, 42, 0.7);
+        }
+
+        td:first-child, th:first-child {
+            font-weight: 600;
+            color: var(--text-muted);
+            min-width: 120px;
+        }
+
+        /* --- 6. Animações e Performance --- */
+        
+        /* Animação de Entrada (.fade-in) */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="header-container">
+            <!-- Logo Principal (Institucional) -->
+            <a href="#">
+                <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" 
+                     alt="Logo da Live Consultoria" class="logo-img" loading="lazy">
+            </a>
+            <!-- Navegação (Exemplo) -->
+            <nav>
+                <a href="#manual">Manual 5S</a>
+                <a href="#plano-piloto" style="margin-left: var(--space-sm);">Plano Piloto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+        <div class="container">
+
+            <!-- SEÇÃO DE TÍTULO -->
+            <section class="fade-in">
+                <h1>Manual Prático de Implantação 5S</h1>
+                <p class="font-secondary" style="font-size: 1.4rem; color: var(--text-muted);">
+                    Um guia completo para transformar a cultura da sua organização, 
+                    eliminando desperdícios e promovendo a excelência operacional.
+                </p>
+            </section>
+
+            <!-- SEÇÃO DE ANÁLISE ESTRATÉGICA (Com Card de Destaque) -->
+            <section id="analise" class="fade-in">
+                <div class="card card-diagnostic">
+                    <h2>Análise Estratégica: Do Conceito à Prática</h2>
+                    <p class="font-secondary">
+                        A implantação do 5S é, antes de tudo, uma mudança de cultura. O sucesso não reside na "faxina" inicial, mas na criação de uma disciplina contínua. Nossa análise identifica 4 pilares críticos para a sustentação do programa.
+                    </p>
+
+                    <h3>Pilares Críticos para o Sucesso</h3>
+                    <ol>
+                        <li><strong>Projeto Piloto:</strong> Implementar em toda a organização é arriscado. Um piloto permite errar em pequena escala, ajustar checklists e criar um caso de sucesso interno.</li>
+                        <li><strong>Governança (Comitê 5S):</strong> O programa precisa de "donos". É vital formalizar um comitê com um *Sponsor* (Diretoria) para recursos e *Líderes de Área* para execução.</li>
+                        <li><strong>Métricas de Impacto (KPIs):</strong> A "Nota 5S" mede conformidade. O sucesso é medido por métricas de negócio: redução no tempo de busca, diminuição de perdas, aumento do NPS.</li>
+                        <li><strong>Sustentação (Rotina):</strong> A disciplina (*Shitsuke*) falha se for baseada apenas em auditorias. Ela deve ser integrada a rituais diários (ex: "5 Minutos de 5S") e à avaliação de desempenho.</li>
+                    </ol>
+
+                    <h3>Aprimoramentos Técnicos</h3>
+                    <p>Para elevar a maturidade do programa, recomendamos integrar ferramentas digitais (softwares de gestão, ERPs para estoque) e *Visual Management* (Kanbans, marcação de solo) para fortalecer a padronização.</p>
+                </div>
+            </section>
+
+            <!-- SEÇÃO DO MANUAL DE IMPLANTAÇÃO (FASES) -->
+            <section id="manual" class="fade-in">
+                <div class="card">
+                    <h2>O Manual de Implantação em 3 Fases</h2>
+                    <p>O Programa 5S (Seiri, Seiton, Seiso, Seiketsu, Shitsuke) é a base para a gestão da qualidade. Sua aplicação busca eliminar desperdícios, aumentar a produtividade e melhorar o ambiente de trabalho.</p>
+
+                    <!-- FASE 1 -->
+                    <h3>Fase 1: Preparação e Engajamento (O Alicerce)</h3>
+                    <p>A implementação é, antes de tudo, uma mudança de hábito. Sem o envolvimento da equipe, o programa será visto apenas como uma faxina temporária.</p>
+                    <ul>
+                        <li><strong>Conscientização e Treinamento:</strong> Todos, da liderança à base, devem compreender o propósito. O treinamento 5S deve ser aplicado a todos, com cronograma definido.</li>
+                        <li><strong>Engajamento da Liderança:</strong> A diretoria deve conduzir ativamente a gestão da qualidade.</li>
+                        <li><strong>Comunicação dos Benefícios:</strong> Mostrar como o 5S beneficia a todos, gerando um ambiente mais organizado, seguro e produtivo.</li>
+                        <li><strong>Diagnóstico Inicial:</strong> Antes de agir, é preciso saber onde você está. Use checklists de auditoria 5S para quantificar a situação atual e identificar pontos críticos.</li>
+                    </ul>
+
+                    <!-- FASE 2 -->
+                    <h3>Fase 2: Aplicação Sequencial dos 5 Sensos</h3>
+                    <p>A aplicação deve ser feita um senso de cada vez, começando pelo Seiri, pois ele libera espaço para a organização. Abaixo, detalhamos a aplicação prática em Varejo e Academias.</p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Senso (Japonês)</th>
+                                    <th>Senso (Português)</th>
+                                    <th>Objetivo Principal</th>
+                                    <th>Aplicação no Varejo e Estoque</th>
+                                    <th>Adaptação para a Academia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Seiri</td>
+                                    <td>Utilização / Descarte</td>
+                                    <td>Separar o útil do inútil. Eliminar desperdícios.</td>
+                                    <td>No Estoque: Identificar e remover itens de baixo giro, quebrados ou vencidos. Retirar paletes danificados.</td>
+                                    <td>Na Área de Treino: Remover equipamentos obsoletos, quebrados ou sem uso. Eliminar objetos pessoais.</td>
+                                </tr>
+                                <tr>
+                                    <td>Seiton</td>
+                                    <td>Ordenação / Organização</td>
+                                    <td>Definir um lugar para cada coisa e mantê-la lá. Otimizar tempo.</td>
+                                    <td>Na Gôndola: Agrupar produtos por tipo/marca. Usar a "zona quente" (altura dos olhos). No Estoque: Implementar Localização Mapeada (endereçamento).</td>
+                                    <td>No Salão: Definir locais específicos e identificados visualmente (etiquetas) para halteres, pesos e acessórios.</td>
+                                </tr>
+                                <tr>
+                                    <td>Seiso</td>
+                                    <td>Limpeza</td>
+                                    <td>Limpar e inspecionar; eliminar a fonte da sujeira.</td>
+                                    <td>Garantir limpeza diária de gôndolas e chão. Inspeção deve identificar problemas (ex: vazamentos). Foco em "não sujar".</td>
+                                    <td>Limpeza regular de equipamentos (suor/poeira). Manter vestiários limpos. Eliminar fontes de sujeira (copos, toalhas).</td>
+                                </tr>
+                                <tr>
+                                    <td>Seiketsu</td>
+                                    <td>Padronização / Saúde</td>
+                                    <td>Manter os 3 Sensos anteriores através de regras. Focar em saúde e segurança.</td>
+                                    <td>Padronizar a comunicação visual (evitar etiquetas improvisadas). Criar checklists de conferência (validade, reposição). Uso de EPIs.</td>
+                                    <td>Padronizar rotinas e escalas de limpeza. Garantir uso de uniformes. Implementar dinâmicas sobre bem-estar.</td>
+                                </tr>
+                                <tr>
+                                    <td>Shitsuke</td>
+                                    <td>Disciplina / Autodisciplina</td>
+                                    <td>Desenvolver o hábito de cumprir rigorosamente as normas.</td>
+                                    <td>Implementar sistema de auditoria. Fazer a equipe seguir o padrão sem fiscalização. Realizar reuniões periódicas de melhoria.</td>
+                                    <td>Garantir que instrutores e alunos mantenham os padrões. Promover a disciplina através da educação contínua.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- NOVO CONTEÚDO ADICIONADO (COMO EXECUTAR + DICAS) -->
+                    <h3 style="margin-top: var(--space-lg);">Fase 2 (Detalhada): Como Executar e Motivar</h3>
+                    <p>A tabela acima resume os objetivos. Abaixo, detalhamos o "como fazer" de cada Senso, com dicas práticas de facilitação e motivação para a equipe.</p>
+
+                    <h4 style="color: var(--text-muted); margin-top: var(--space-md);">1. Seiri (Utilização / Descarte)</h4>
+                    <ul>
+                        <li><strong>Como Executar (Varejo/Estoque):</strong> Promova o "Dia do Descarte". Esvazie uma seção do estoque de cada vez. Crie três áreas lonadas no chão: "MANTER" (itens de giro), "DESCARTAR" (vencidos, quebrados, irrecuperáveis), "ANALISAR/REALOCAR" (itens de baixo giro, obsoletos mas funcionais).</li>
+                        <li><strong>Como Executar (Academia):</strong> Faça uma varredura em todos os equipamentos. Colchonetes rasgados, anilhas rachadas ou puxadores danificados vão para "DESCARTAR". Equipamentos obsoletos ou com pouquíssimo uso (mas funcionais) vão para "ANALISAR/VENDER".</li>
+                        <li><strong>Dica de Facilitação (Etiqueta Vermelha):</strong> Para itens na área "ANALISAR", use o "Método da Etiqueta Vermelha". Cole uma etiqueta em itens que a equipe tem dúvida sobre a utilidade. Defina um prazo (ex: 30 dias). Se ninguém usar ou justificar o item nesse prazo, ele é descartado ou realocado.</li>
+                        <li><strong>Dica de Motivação:</strong> Mostre o custo financeiro. "Cada metro quadrado deste estoque custa R$X por mês. Manter itens inúteis é perder dinheiro." (Varejo). "Equipamentos velhos ou quebrados geram risco de acidentes e insatisfação." (Academia).</li>
+                    </ul>
+
+                    <h4 style="color: var(--text-muted); margin-top: var(--space-md);">2. Seiton (Ordenação / Organização)</h4>
+                    <ul>
+                        <li><strong>Como Executar (Varejo/Estoque):</strong> Use a "Curva ABC". Itens "A" (alto giro) devem ficar mais próximos da expedição/gôndola, na altura mais fácil de pegar. Itens "C" (baixo giro) podem ficar mais altos ou distantes. Implemente o "Endereçamento de Estoque" (Ex: Rua A, Prateleira 03, Nível 4).</li>
+                        <li><strong>Como Executar (Academia):</strong> Crie "Zonas Visuais". Use fitas de marcação no chão para delimitar a área de cada equipamento e o "estacionamento" de pesos livres. Crie "Painéis de Sombra" (shadow boards) na parede para acessórios (puxadores, cordas, cintos), onde o contorno de cada item é desenhado.</li>
+                        <li><strong>Dica de Facilitação:</strong> "Tudo Etiquetado". O padrão deve ser óbvio. Use etiquetas grandes, visuais e padronizadas. A regra de ouro é: "Qualquer pessoa (até um novato) deve encontrar qualquer item em 30 segundos".</li>
+                        <li><strong>Dica de Motivação:</strong> Cronometre o tempo! Meça quanto tempo a equipe leva para montar um pedido (Varejo) ou encontrar um acessório (Academia) *antes* e *depois* do Seiton. Divulgue a redução de tempo (Ex: "Reduzimos em 7 minutos o tempo de reposição!").</li>
+                    </ul>
+
+                    <h4 style="color: var(--text-muted); margin-top: var(--space-md);">3. Seiso (Limpeza)</h4>
+                    <ul>
+                        <li><strong>Como Executar (Varejo):</strong> Trate a "Limpeza como Inspeção". A equipe de limpeza não deve apenas limpar, mas inspecionar. Um chão sujo de óleo pode indicar um vazamento (problema). Crie "Rotinas de Limpeza de 5 Minutos" 10 minutos antes do fechamento da loja.</li>
+                        <li><strong>Como Executar (Academia):</strong> Crie o senso de "Propriedade Coletiva". Disponibilize kits de higienização (álcool, panos) acessíveis aos *clientes* para limpeza pós-uso. Os instrutores devem ser os guardiões da limpeza, inspecionando visualmente e agindo imediatamente.</li>
+                        <li><strong>Dica de Facilitação:</strong> Crie um "Mapa de Zonas de Limpeza". Divida a loja/academia em zonas (Ex: "Área de Caixas", "Vestiário Masculino", "Estoque Frio"). Crie um rodízio semanal de "Donos da Zona", responsáveis por garantir o padrão.</li>
+                        <li><strong>Dica de Motivação:</strong> Conecte limpeza com receita. "Ambientes limpos e bem iluminados aumentam o tempo de permanência do cliente e o ticket médio." (Varejo). "Higiene é o fator nº 1 de escolha e retenção em academias." (Academia).</li>
+                    </ul>
+
+                    <h4 style="color: var(--text-muted); margin-top: var(--space-md);">4. Seiketsu (Padronização / Saúde)</h4>
+                    <ul>
+                        <li><strong>Como Executar (Varejo):</strong> Crie "POP's Visuais" (Procedimento Operacional Padrão). Tire fotos de como uma gôndola deve estar (o "Padrão Ouro") e coloque em um checklist. Padronize uniformes, etiquetas de preço e comunicação de promoções (evite "cartazes" feitos à mão).</li>
+                        <li><strong>Como Executar (Academia):</strong> Crie checklists visuais para abertura e fechamento da academia (Ex: verificar som, iluminação, limpeza de todos os equipamentos, organização dos pesos). Padronize os avisos de segurança e regras de uso dos equipamentos.</li>
+                        <li><strong>Dica de Facilitação:</strong> Use o "Controle Visual". Marcações no chão (zebradas) para "Não obstrua esta área", indicadores visuais de estoque mínimo/máximo nas prateleiras, e os próprios checklists afixados em locais visíveis.</li>
+                        <li><strong>Dica de Motivação:</strong> A padronização reduz o estresse. "Ninguém precisa 'adivinhar' como fazer. O padrão está lá e é o jeito mais fácil e seguro de executar." Isso melhora a saúde mental e a segurança no trabalho.</li>
+                    </ul>
+
+                    <h4 style="color: var(--text-muted); margin-top: var(--space-md);">5. Shitsuke (Disciplina / Autodisciplina)</h4>
+                    <ul>
+                        <li><strong>Como Executar (Varejo/Academia):</strong> "A Auditoria é o Hábito". A disciplina é mantida por auditorias *constantes*. O Comitê 5S (ou os "Donos de Zona") realiza a auditoria semanalmente (no início) e depois mensalmente, *junto* com a equipe da área, não *contra* ela. O foco é em "O que podemos melhorar?" e não "Quem errou?".</li>
+                        <li><strong>Dica de Facilitação:</strong> "Gamificação". Crie um "Ranking 5S" visível em um painel. O departamento/zona com a melhor nota de auditoria no mês ganha um reconhecimento (Ex: um café da manhã especial, um troféu simbólico que fica na área até o próximo mês).</li>
+                        <li><strong>Dica de Motivação:</strong> "Reconhecimento e Consequência". Integre a nota 5S à avaliação de desempenho (como dito no plano piloto). Celebre publicamente as vitórias e as melhorias. Mostre que o 5S não é "extra", é parte fundamental da excelência no trabalho.</li>
+                    </ul>
+                    <!-- FIM DO NOVO CONTEÚDO -->
+
+
+                    <!-- FASE 3 -->
+                    <h3 style="margin-top: var(--space-lg);">Fase 3: Sustentação e Melhoria Contínua (O Kaizen)</h3>
+                    <p>O maior desafio é manter o programa vivo. A disciplina (<strong>Shitsuke</strong>) é mantida pelo monitoramento constante e pela integração do 5S à cultura.</p>
+                    <ul>
+                        <li><strong>Monitoramento e Auditoria:</strong> Use os checklists da Fase 1 semanal ou mensalmente. A auditoria detecta a não padronização como uma oportunidade de melhoria.</li>
+                        <li><strong>Avaliação de Desempenho:</strong> Divulgue a performance das áreas, incentivando uma competição saudável (gamificação).</li>
+                        <li><strong>Feedback e Revisão:</strong> Use os dados das auditorias para definir planos de ação corretiva (Ciclo PDCA).</li>
+                        <li><strong>Investimento em Capital Humano:</strong> O sucesso depende da autodisciplina. O treinamento deve ser contínuo para que os novos valores se tornem hábitos.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SEÇÃO PLANO PILOTO -->
+            <section id="plano-piloto" class="fade-in">
+                <div class="card">
+                    <h2>Estudo de Caso: Plano Piloto (Loja de Utilidades)</h2>
+                    <p>Abaixo está um resumo do plano de ação tático para uma implantação piloto em uma loja de utilidades domésticas e listas de casamento, com duração de 4 meses.</p>
+
+                    <h3>1. Objetivos e Métricas de Sucesso (KPIs)</h3>
+                    <ul>
+                        <li><strong>Redução de Tempo:</strong> 20-30% de redução no tempo de busca de itens no estoque.</li>
+                        <li><strong>Redução de Perdas:</strong> 15% de diminuição em perdas por danos ou validade.</li>
+                        <li><strong>Satisfação (NPS):</strong> Melhoria de 10-15% na satisfação interna (colaboradores) e externa (clientes).</li>
+                        <li><strong>Adesão:</strong> Taxa de adesão aos padrões 5S superior a 85% nas auditorias finais.</li>
+                    </ul>
+
+                    <h3>2. Cronograma Geral (4 Meses)</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Etapa</th>
+                                    <th>Duração</th>
+                                    <th>Atividades Principais</th>
+                                    <th>Responsáveis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Preparação</td>
+                                    <td>Mês 1 (Semanas 1-4)</td>
+                                    <td>Diagnóstico, treinamentos (4h/pessoa), formação do Comitê Piloto, planejamento.</td>
+                                    <td>Líder de 5S e Alta Gestão.</td>
+                                </tr>
+                                <tr>
+                                    <td>Aplicação Sequencial</td>
+                                    <td>Mês 2-3 (Semanas 5-12)</td>
+                                    <td>Implantação dos 5 Sensos (Seiri, Seiton, Seiso, Seiketsu) por departamento.</td>
+                                    <td>Equipes departamentais.</td>
+                                </tr>
+                                <tr>
+                                    <td>Sustentação (Shitsuke)</td>
+                                    <td>Mês 4 (Semanas 13-16)</td>
+                                    <td>Auditorias semanais, ajustes de processo, gamificação, avaliação final de KPIs.</td>
+                                    <td>Comitê de Auditoria.</td>
+                                </tr>
+                                <tr>
+                                    <td>Encerramento e Relatório</td>
+                                    <td>Semana 17</td>
+                                    <td>Análise de resultados (ROI), lições aprendidas e recomendações para expansão.</td>
+                                    <td>Líder de 5S.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>3. Riscos e Medidas de Mitigação</h3>
+                    <ul>
+                        <li><strong>Risco:</strong> Resistência da Equipe.
+                            <br><strong>Mitigação:</strong> Enfatizar benefícios pessoais nos treinamentos e envolver líderes desde o início.</li>
+                        <li><strong>Risco:</strong> Sobrecarga Operacional.
+                            <br><strong>Mitigação:</strong> Escalonar atividades fora de horários de pico (conforme minha análise, evitar "1 senso por semana").</li>
+                        <li><strong>Risco:</strong> Baixa Sustentabilidade.
+                            <br><strong>Mitigação:</strong> Integrar o 5S às avaliações de desempenho anuais e aos rituais diários.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="container">
+            <!-- Usando o logo principal novamente, ou o alternativo se preferir -->
+            <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" 
+                 alt="Logo da Live Consultoria" class="logo-img" style="height: 40px;" loading="lazy">
+            <p>Live Consultoria - Transformando Processos, Impulsionando Resultados.<br>
+               Este documento é um material de propriedade intelectual da Live Consultoria.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript para Animações (Intersection Observer) -->
+    <script>
+        window.onload = () => {
+            // Seleciona todos os elementos que devem ter a animação
+            const elementsToFadeIn = document.querySelectorAll('.fade-in');
+
+            if (!('IntersectionObserver' in window)) {
+                // Se o navegador não suporta, apenas mostra os elementos
+                elementsToFadeIn.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+
+            // Configuração do Observer
+            const observerOptions = {
+                root: null, // relativo ao viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% do elemento visível
+            };
+
+            // Callback do Observer
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Adiciona a classe 'is-visible' quando o elemento entra na tela
+                        entry.target.classList.add('is-visible');
+                        // Para de observar o elemento após a animação
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            // Cria e inicia o Observer
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            elementsToFadeIn.forEach(el => observer.observe(el));
+        };
+    </script>
+
+</body>
+</html>
