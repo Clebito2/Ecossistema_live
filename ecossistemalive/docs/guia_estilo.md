@@ -199,3 +199,182 @@ Use esta instrução unificada para garantir a criação de páginas consistente
 * **\[SE FOR INSTITUCIONAL\]:** Inclua a seção '\#clientes', populando-a com todos os logos da Biblioteca de Ativos.  
 * **\[SE FOR PROPOSTA\]:** Omita a seção '\#clientes'. Personalize o conteúdo para o (Nome do Cliente). Use a fonte var(--font-secondary) na seção de diagnóstico e implemente o 'Plano de Ação' usando o componente de linha do tempo vertical animada."
 
+### Sumário de Sugestões para Melhorias Visuais e de Usabilidade (UX/UI)
+**Documento de Suporte ao Guia de Estilo V2 (LiVe)**
+
+**Propósito:** Este documento consolida diretrizes estratégicas de Experiência do Usuário (UX) e Interface do Usuário (UI) para a implementação das páginas HTML da Live Consultoria. O foco é aprimorar a conversão, a legibilidade e a acessibilidade, mantendo a rigorosa aderência aos *tokens* de design definidos no Guia de Estilo (V2).
+
+---
+
+### I. Diretrizes de Cores, Foco e Estética (UI/Branding)
+
+| Diretriz | Racional e Suporte | Conflitos Potenciais e Comando de IA |
+| :--- | :--- | :--- |
+| **1. Uso Estratégico da Cor de Destaque** | O **Verde Vibrante** (`--accent-color`) deve ser utilizado com moderação e intencionalidade para evitar a competição visual. Essa cor deve ser reservada para elementos que exigem ação imediata (CTAs primários) e fornecem feedback (foco visível). O uso estratégico de cores contrastantes faz com que o botão *call-to-action* se destaque do resto do conteúdo. | **Conflito (Uso em Títulos):** O Guia de Estilo permite o uso do *token* `--accent-color` para "títulos". O uso excessivo pode levar à **Cegueira a Anúncios** (ignorar o destaque). **Comando de IA:** Priorize o `var(--accent-color)` estritamente em **botões e CTAs primários** e no estado `:focus-visible`. Reduza seu uso em títulos que não sejam o `<h1>` ou blocos que não requeiram ação imediata. |
+| **2. Contraste e Acessibilidade Visual** | O contraste é crucial para a legibilidade dos conteúdos e a acessibilidade do site. Todas as combinações de texto/fundo devem satisfazer o requisito **WCAG AA**. | **Refinamento (Texto Longo):** Em fundos escuros (`--primary-bg`), o texto longo principal deve preferir tons cinzentos suaves (`--text-subtle` ou `--text-muted`) em vez de branco puro (`--text-primary`) para reduzir a **fadiga visual**. **Comando de IA:** EM **PARÁGRAFOS EXTENSOS**, substitua o `var(--text-primary)` pelo `var(--text-subtle)` ou `var(--text-muted)`. Em títulos ou textos curtos, mantenha `var(--text-primary)`. |
+| **3. Estética Minimalista** | Priorize o **Design Minimalista e Funcional**, utilizando layouts limpos e amplo **Espaço em Branco** (*whitespace*). O design minimalista e estético assegura que os diálogos não contenham informações irrelevantes ou raramente necessárias, focando no essencial. | **Comando de IA:** Garanta que os elementos visuais suportem os objetivos principais do usuário. Utilize a escala de espaçamento do sistema de design (`--space-sm`, `--space-md`, etc.) para separar seções e parágrafos, facilitando a leitura (Macro e Micro *Whitespace*). |
+
+### II. Diretrizes de Conteúdo e Legibilidade (UX)
+
+| Diretriz | Racional e Suporte | Conflitos Potenciais e Comando de IA |
+| :--- | :--- | :--- |
+| **4. Hierarquia e Escala de Títulos** | Mantenha uma hierarquia textual clara (H1, H2, H3) e utilize a escala de tamanho definida pelos *tokens* (`--font-size-h1`, etc.). A Hierarquia dentro do design de interface prioriza um elemento em detrimento do outro a partir de critérios como tamanho. | **Comando de IA:** Garanta o uso de um **único `<h1>` por página** para definir o conteúdo mais importante e a palavra-chave foco. Utilize `<h2>` e `<h3>` para estruturar e agrupar o conteúdo abaixo. |
+| **5. Otimização da Linha de Texto** | Limite o corpo do texto a uma largura que contenha **entre 50 e 75 caracteres por linha**. Isso evita tornar o texto tedioso e causa cansaço visual, melhorando a legibilidade. | **Comando de IA:** Aplique *breakpoints* (consultas de mídia) para restringir a largura máxima do texto, garantindo que colunas de conteúdo longo não excedam 75 caracteres em telas maiores. |
+| **6. Organização e Agrupamento (*Chunking*)** | Agrupe informações relacionadas em "blocos" visualmente distintos, usando o componente `.card` e o princípio de proximidade. Isso ajuda os usuários a processar, entender e memorizar as informações facilmente (Lei de Miller). | **Comando de IA:** Ao desenvolver seções de recursos ou portfólio, use o componente `.card` para agrupar visualmente informações de forma coesa, reforçando a estrutura de módulos (Chunking). |
+
+### III. Diretrizes de Interação e Performance (Acessibilidade)
+
+| Diretriz | Racional e Suporte | Conflitos Potenciais e Comando de IA |
+| :--- | :--- | :--- |
+| **7. Design Responsivo (Mobile-First)** | Siga a abordagem **Mobile-First** e garanta que o site esteja adaptado para dispositivos móveis. A flexibilidade de design é crucial, pois o tamanho da tela não prevê o que o usuário quer ver. | **Comando de IA:** Defina os estilos para telas pequenas e depois aprimore com *media queries* (`min-width`) para *breakpoints* maiores. Utilize **Flexbox** ou **CSS Grid** para layouts responsivos. |
+| **8. Performance e Carregamento Rápido** | O carregamento lento é um dos erros mais comuns que trazem malefícios ao negócio. Forneça *feedback* do sistema em até **400 ms** (Limiar de Doherty) para manter a atenção do usuário. | **Comando de IA:** Garanta que todas as imagens (`<img>`) incluam atributos `width` e `height` (além de `loading="lazy"`) para evitar mudanças abruptas de layout (*layout shifts*) e otimizar a velocidade de carregamento. Ative a animação `.fade-in` via `IntersectionObserver`. |
+| **9. Otimização de Formulários e Feedback** | Formulários devem ser concisos e simples, limitando o número de campos (Lei de Hick). É fundamental fornecer **feedback imediato** ao usuário após o preenchimento, confirmando ou diagnosticando erros em linguagem simples. | **Comando de IA:** Em caso de erro (ex: preenchimento de login), a mensagem deve ser expressa sem códigos, indicar precisamente o problema e sugerir uma solução de forma construtiva (Heurística 9). Garanta que os campos de formulário solicitem apenas o necessário. |
+| **10. Acessibilidade na Navegação** | Todos os elementos interativos (como links e cartões) devem ter um estado de foco visível e claro (`:focus-visible` com `var(--accent-color)`) para garantir a **Navegação por Teclado**. **Alvos de toque** em dispositivos móveis devem ter tamanho e espaçamento adequados. | **Comando de IA:** Verifique se todas as imagens possuem o atributo `alt` descritivo. Utilize navegação por links de forma intuitiva, aderindo à **Consistência e Padronização** (Heurística 4). |
+
+### IV. Comando Final para o Processamento por IA (Reforço Empresarial)
+
+Utilize a instrução de *prompt* já definida no guia, mas inclua as seguintes diretrizes para garantir a **resiliência do design** e a **otimização de conversão**:
+
+> "Na fase de 'Prototipação', **valide a usabilidade e a arquitetura da informação** aplicando a técnica de **Card Sorting** para garantir que a navegação do site atenda aos modelos mentais do público-alvo (Lei de Jakob). Garanta que os CTAs e botões primários sigam o **Efeito von Restorff** para maximizar a conversão. Para todo o conteúdo longo, aplique o princípio de **Chunking** e o limite de **50 a 75 caracteres por linha** para otimizar a legibilidade."
+
+### Análise do `index.html` para Padrão de Página
+
+Analisei o arquivo `index.html`. O padrão para criar novas páginas ou seções é bastante claro e modular. Aqui está um resumo:
+
+**Estrutura Principal:**
+
+*   **Arquivo HTML:** A página é um único arquivo HTML com o CSS e o JavaScript embutidos.
+*   **Cabeçalho (`<header>`):** Fixo no topo, contém o logo.
+*   **Seções (`<section>`):** O corpo da página é dividido em seções. Cada seção tem um propósito (ex: "Sobre", "Serviços").
+*   **Container (`<div class="container">`):** Cada seção principal usa uma `div` com a classe `container` para centralizar o conteúdo e manter as margens.
+*   **Títulos (`<h2>`):** As seções são introduzidas por um título `<h2>`.
+*   **Rodapé (`<footer>`):** Fixo na parte inferior, com informações de contato e direitos autorais.
+
+**Estilo e Componentes:**
+
+*   **Cores:** O estilo é controlado por variáveis CSS no início do bloco `<style>` (ex: `--azul-petroleo`, `--verde-vibrante`). Isso facilita a manutenção da paleta de cores.
+*   **Grids:** O layout dos itens é feito com classes de grid, como `grid`, `grid-2`, `grid-3`, `grid-4`.
+*   **Cards (`<div class="card">`):** O conteúdo é frequentemente apresentado em "cards", que são caixas com fundo escuro, bordas arredondadas e uma leve sombra.
+*   **Botões (`<a class="cta-button">`):** Há um estilo padrão para botões de "call-to-action".
+*   **Animação:** As seções usam a classe `fade-in` para uma animação suave de surgimento ao rolar a página. O JavaScript no final do arquivo cuida dessa funcionalidade.
+
+**Como criar uma nova página/seção (o padrão):**
+
+1.  **Copie a estrutura básica:** Comece com a mesma estrutura de `index.html`, incluindo o `<head>` (com todo o CSS), o `<header>` e o `<footer>`.
+2.  **Crie uma nova `<section>`:** Para cada novo bloco de conteúdo, crie uma tag `<section>`.
+3.  **Adicione um `<div class="container">`:** Dentro da seção, coloque seu conteúdo dentro de um `<div class="container">`.
+4.  **Use os componentes existentes:** Utilize as classes CSS já prontas para criar seus layouts. Por exemplo, para criar uma seção com três cards:
+
+    ```html
+    <section id="nova-secao" class="container fade-in">
+        <h2>Título da Nova Seção</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <h3>Novo Item 1</h3>
+                <p>Descrição do novo item 1.</p>
+            </div>
+            <div class="card">
+                <h3>Novo Item 2</h3>
+                <p>Descrição do novo item 2.</p>
+            </div>
+            <div class="card">
+                <h3>Novo Item 3</h3>
+                <p>Descrição do novo item 3.</p>
+            </div>
+        </div>
+    </section>
+    ```
+
+5.  **Adicione a classe `fade-in`:** Se quiser que a nova seção apareça com a animação de scroll, adicione a classe `fade-in` à tag `<section>`.
+
+Seguindo esses passos, você manterá a consistência visual e funcional da página existente.
+
+### Sumário de Sugestões para Melhorias Visuais e de Usabilidade (UX/UI)
+**Documento de Suporte ao Guia de Estilo V2 (LiVe)**
+
+**Propósito:** Este documento consolida diretrizes estratégicas de Experiência do Usuário (UX) e Interface do Usuário (UI) para a implementação das páginas HTML da Live Consultoria. O foco é aprimorar a conversão, a legibilidade e a acessibilidade, mantendo a rigorosa aderência aos *tokens* de design definidos no Guia de Estilo (V2).
+
+---
+
+### I. Diretrizes de Cores, Foco e Estética (UI/Branding)
+
+| Diretriz | Racional e Suporte | Conflitos Potenciais e Comando de IA |
+| :--- | :--- | :--- |
+| **1. Uso Estratégico da Cor de Destaque** | O **Verde Vibrante** (`--accent-color`) deve ser utilizado com moderação e intencionalidade para evitar a competição visual. Essa cor deve ser reservada para elementos que exigem ação imediata (CTAs primários) e fornecem feedback (foco visível). O uso estratégico de cores contrastantes faz com que o botão *call-to-action* se destaque do resto do conteúdo. | **Conflito (Uso em Títulos):** O Guia de Estilo permite o uso do *token* `--accent-color` para "títulos". O uso excessivo pode levar à **Cegueira a Anúncios** (ignorar o destaque). **Comando de IA:** Priorize o `var(--accent-color)` estritamente em **botões e CTAs primários** e no estado `:focus-visible`. Reduza seu uso em títulos que não sejam o `<h1>` ou blocos que não requeiram ação imediata. |
+| **2. Contraste e Acessibilidade Visual** | O contraste é crucial para a legibilidade dos conteúdos e a acessibilidade do site. Todas as combinações de texto/fundo devem satisfazer o requisito **WCAG AA**. | **Refinamento (Texto Longo):** Em fundos escuros (`--primary-bg`), o texto longo principal deve preferir tons cinzentos suaves (`--text-subtle` ou `--text-muted`) em vez de branco puro (`--text-primary`) para reduzir a **fadiga visual**. **Comando de IA:** EM **PARÁGRAFOS EXTENSOS**, substitua o `var(--text-primary)` pelo `var(--text-subtle)` ou `var(--text-muted)`. Em títulos ou textos curtos, mantenha `var(--text-primary)`. |
+| **3. Estética Minimalista** | Priorize o **Design Minimalista e Funcional**, utilizando layouts limpos e amplo **Espaço em Branco** (*whitespace*). O design minimalista e estético assegura que os diálogos não contenham informações irrelevantes ou raramente necessárias, focando no essencial. | **Comando de IA:** Garanta que os elementos visuais suportem os objetivos principais do usuário. Utilize a escala de espaçamento do sistema de design (`--space-sm`, `--space-md`, etc.) para separar seções e parágrafos, facilitando a leitura (Macro e Micro *Whitespace*). |
+
+### II. Diretrizes de Conteúdo e Legibilidade (UX)
+
+| Diretriz | Racional e Suporte | Conflitos Potenciais e Comando de IA |
+| :--- | :--- | :--- |
+| **4. Hierarquia e Escala de Títulos** | Mantenha uma hierarquia textual clara (H1, H2, H3) e utilize a escala de tamanho definida pelos *tokens* (`--font-size-h1`, etc.). A Hierarquia dentro do design de interface prioriza um elemento em detrimento do outro a partir de critérios como tamanho. | **Comando de IA:** Garanta o uso de um **único `<h1>` por página** para definir o conteúdo mais importante e a palavra-chave foco. Utilize `<h2>` e `<h3>` para estruturar e agrupar o conteúdo abaixo. |
+| **5. Otimização da Linha de Texto** | Limite o corpo do texto a uma largura que contenha **entre 50 e 75 caracteres por linha**. Isso evita tornar o texto tedioso e causa cansaço visual, melhorando a legibilidade. | **Comando de IA:** Aplique *breakpoints* (consultas de mídia) para restringir a largura máxima do texto, garantindo que colunas de conteúdo longo não excedam 75 caracteres em telas maiores. |
+| **6. Organização e Agrupamento (*Chunking*)** | Agrupe informações relacionadas em "blocos" visualmente distintos, usando o componente `.card` e o princípio de proximidade. Isso ajuda os usuários a processar, entender e memorizar as informações facilmente (Lei de Miller). | **Comando de IA:** Ao desenvolver seções de recursos ou portfólio, use o componente `.card` para agrupar visualmente informações de forma coesa, reforçando a estrutura de módulos (Chunking). |
+
+### III. Diretrizes de Interação e Performance (Acessibilidade)
+
+| Diretriz | Racional e Suporte | Conflitos Potenciais e Comando de IA |
+| :--- | :--- | :--- |
+| **7. Design Responsivo (Mobile-First)** | Siga a abordagem **Mobile-First** e garanta que o site esteja adaptado para dispositivos móveis. A flexibilidade de design é crucial, pois o tamanho da tela não prevê o que o usuário quer ver. | **Comando de IA:** Defina os estilos para telas pequenas e depois aprimore com *media queries* (`min-width`) para *breakpoints* maiores. Utilize **Flexbox** ou **CSS Grid** para layouts responsivos. |
+| **8. Performance e Carregamento Rápido** | O carregamento lento é um dos erros mais comuns que trazem malefícios ao negócio. Forneça *feedback* do sistema em até **400 ms** (Limiar de Doherty) para manter a atenção do usuário. | **Comando de IA:** Garanta que todas as imagens (`<img>`) incluam atributos `width` e `height` (além de `loading="lazy"`) para evitar mudanças abruptas de layout (*layout shifts*) e otimizar a velocidade de carregamento. Ative a animação `.fade-in` via `IntersectionObserver`. |
+| **9. Otimização de Formulários e Feedback** | Formulários devem ser concisos e simples, limitando o número de campos (Lei de Hick). É fundamental fornecer **feedback imediato** ao usuário após o preenchimento, confirmando ou diagnosticando erros em linguagem simples. | **Comando de IA:** Em caso de erro (ex: preenchimento de login), a mensagem deve ser expressa sem códigos, indicar precisamente o problema e sugerir uma solução de forma construtiva (Heurística 9). Garanta que os campos de formulário solicitem apenas o necessário. |
+| **10. Acessibilidade na Navegação** | Todos os elementos interativos (como links e cartões) devem ter um estado de foco visível e claro (`:focus-visible` com `var(--accent-color)`) para garantir a **Navegação por Teclado**. **Alvos de toque** em dispositivos móveis devem ter tamanho e espaçamento adequados. | **Comando de IA:** Verifique se todas as imagens possuem o atributo `alt` descritivo. Utilize navegação por links de forma intuitiva, aderindo à **Consistência e Padronização** (Heurística 4). |
+
+### IV. Comando Final para o Processamento por IA (Reforço Empresarial)
+
+Utilize a instrução de *prompt* já definida no guia, mas inclua as seguintes diretrizes para garantir a **resiliência do design** e a **otimização de conversão**:
+
+> "Na fase de 'Prototipação', **valide a usabilidade e a arquitetura da informação** aplicando a técnica de **Card Sorting** para garantir que a navegação do site atenda aos modelos mentais do público-alvo (Lei de Jakob). Garanta que os CTAs e botões primários sigam o **Efeito von Restorff** para maximizar a conversão. Para todo o conteúdo longo, aplique o princípio de **Chunking** e o limite de **50 a 75 caracteres por linha** para otimizar a legibilidade."
+
+### Análise do `index.html` para Padrão de Página
+
+Analisei o arquivo `index.html`. O padrão para criar novas páginas ou seções é bastante claro e modular. Aqui está um resumo:
+
+**Estrutura Principal:**
+
+*   **Arquivo HTML:** A página é um único arquivo HTML com o CSS e o JavaScript embutidos.
+*   **Cabeçalho (`<header>`):** Fixo no topo, contém o logo.
+*   **Seções (`<section>`):** O corpo da página é dividido em seções. Cada seção tem um propósito (ex: "Sobre", "Serviços").
+*   **Container (`<div class="container">`):** Cada seção principal usa uma `div` com a classe `container` para centralizar o conteúdo e manter as margens.
+*   **Títulos (`<h2>`):** As seções são introduzidas por um título `<h2>`.
+*   **Rodapé (`<footer>`):** Fixo na parte inferior, com informações de contato e direitos autorais.
+
+**Estilo e Componentes:**
+
+*   **Cores:** O estilo é controlado por variáveis CSS no início do bloco `<style>` (ex: `--azul-petroleo`, `--verde-vibrante`). Isso facilita a manutenção da paleta de cores.
+*   **Grids:** O layout dos itens é feito com classes de grid, como `grid`, `grid-2`, `grid-3`, `grid-4`.
+*   **Cards (`<div class="card">`):** O conteúdo é frequentemente apresentado em "cards", que são caixas com fundo escuro, bordas arredondadas e uma leve sombra.
+*   **Botões (`<a class="cta-button">`):** Há um estilo padrão para botões de "call-to-action".
+*   **Animação:** As seções usam a classe `fade-in` para uma animação suave de surgimento ao rolar a página. O JavaScript no final do arquivo cuida dessa funcionalidade.
+
+**Como criar uma nova página/seção (o padrão):**
+
+1.  **Copie a estrutura básica:** Comece com a mesma estrutura de `index.html`, incluindo o `<head>` (com todo o CSS), o `<header>` e o `<footer>`.
+2.  **Crie uma nova `<section>`:** Para cada novo bloco de conteúdo, crie uma tag `<section>`.
+3.  **Adicione um `<div class="container">`:** Dentro da seção, coloque seu conteúdo dentro de um `<div class="container">`.
+4.  **Use os componentes existentes:** Utilize as classes CSS já prontas para criar seus layouts. Por exemplo, para criar uma seção com três cards:
+
+    ```html
+    <section id="nova-secao" class="container fade-in">
+        <h2>Título da Nova Seção</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <h3>Novo Item 1</h3>
+                <p>Descrição do novo item 1.</p>
+            </div>
+            <div class="card">
+                <h3>Novo Item 2</h3>
+                <p>Descrição do novo item 2.</p>
+            </div>
+            <div class="card">
+                <h3>Novo Item 3</h3>
+                <p>Descrição do novo item 3.</p>
+            </div>
+        </div>
+    </section>
+    ```
+
+5.  **Adicione a classe `fade-in`:** Se quiser que a nova seção apareça com a animação de scroll, adicione a classe `fade-in` à tag `<section>`.
+
+Seguindo esses passos, você manterá a consistência visual e funcional da página existente.
