@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Divulgação de Vaga - Live Consultoria</title>
+
+    <!-- 1.2. Importação de Tipografia (Obrigatório) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 1. Núcleo da Identidade Visual (Brand Core) - Tokens Obrigatórios */
+        :root {
+            /* 1.1. Paleta de Cores */
+            --primary-bg: #06192a;
+            --card-bg: #0A243D;
+            --accent-color: #00e800;
+            --text-primary: #ffffff;
+            --text-muted: #cccccc;
+            --text-subtle: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+
+            /* 1.2. Tipografia */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+            --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+
+            /* 1.3. Espaçamento */
+            --space-sm: 1rem;   /* 16px */
+            --space-md: 2rem;   /* 32px */
+            --space-lg: 4rem;   /* 64px */
+            --space-xl: 6rem;   /* 96px */
+        }
+
+        /* Reset Global e Estilos Base */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding-top: 70px; /* Ajustado para o novo header */
+
+            /* 2.2. Textura de Fundo (Obrigatório) */
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+        }
+
+        /* 6. Padrões de Acessibilidade (a11y) - Foco Visível */
+        *:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* 3. Estrutura e Layout */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--space-sm);
+            padding-right: var(--space-sm);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 3. Cabeçalho (Header) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px; /* Ajustado */
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            
+            /* Efeito de vidro com blur */
+            background-color: rgba(6, 25, 42, 0.8); /* --primary-bg com alfa */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        header .logo {
+            max-width: 130px; /* Ajustado */
+            border-radius: 8px; /* Adicionado para arredondar as bordas */
+        }
+
+        /* 3. Estrutura e Layout (main) */
+        main {
+            width: 100%;
+        }
+
+        /* Seção Hero (Título e Intro) */
+        .hero-section {
+            padding-top: var(--space-lg);
+            padding-bottom: var(--space-md);
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-family: var(--font-primary);
+            font-size: var(--font-size-h1);
+            font-weight: 700;
+            color: var(--accent-color); /* Destaque para o H1 principal */
+            margin-bottom: var(--space-sm);
+            line-height: 1.2;
+        }
+
+        .hero-section .subtitle {
+            font-size: var(--font-size-base);
+            color: var(--text-muted);
+            max-width: 70ch; /* Limite de caracteres por linha (UX) */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Seção de Conteúdo (Passos) */
+        .content-section {
+            padding-bottom: var(--space-lg);
+        }
+
+        .steps-grid {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        /* 4. Componentes - Card Padrão (.card) */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-md);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        /* 4.1. Estados de Interação */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), var(--accent-glow);
+        }
+
+        /* Tipografia dentro dos Cards */
+        .card h3 {
+            font-family: var(--font-primary);
+            font-size: var(--font-size-h3);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .card h4 {
+            font-family: var(--font-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-sm);
+            border-left: 3px solid var(--accent-color);
+            padding-left: var(--space-sm);
+        }
+
+        /* Diretriz de UX: Usar --text-subtle para parágrafos longos */
+        .card p,
+        .card li {
+            color: var(--text-subtle);
+            font-size: 1rem;
+            max-width: 70ch; /* Limite de caracteres por linha (UX) */
+        }
+
+        .card ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            padding-left: var(--space-sm);
+            display: grid;
+            gap: 0.5rem;
+        }
+        
+        .card ul.nested-list {
+            list-style-type: circle; /* Style for nested list */
+            list-style-position: inside;
+            padding-left: var(--space-sm);
+            margin-top: 0.5rem;
+            display: grid;
+            gap: 0.25rem; /* Smaller gap */
+        }
+        
+        /* Bloco de Exemplo de Anúncio */
+        .card pre {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+
+        /* Novos Estilos para Dicas e Explicações */
+        .tip-box, .explanation-box {
+            background-color: var(--primary-bg); /* Fundo sutilmente diferente */
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+        
+        .tip-box h5, .explanation-box h5 {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tip-box h5::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .explanation-box h5::before {
+            content: 'ℹ️';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .tip-box p, .tip-box li,
+        .explanation-box p, .explanation-box li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .tip-box ul, .explanation-box ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: var(--space-sm);
+        }
+        
+        .tip-box ul li, .explanation-box ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-box ul li::before {
+            content: '✅'; /* Checkmark */
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+        
+        .explanation-box ul li {
+            padding-left: 0; /* Não precisa de ícone em cada item */
+        }
+        
+        /* Novo Bloco de Ênfase Comportamental */
+        .behavior-focus-box {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--accent-color); /* Borda sólida de destaque */
+            border-radius: 8px;
+            padding: var(--space-sm);
+            margin-top: var(--space-md);
+            box-shadow: var(--accent-glow); /* Brilho sutil */
+        }
+        
+        .behavior-focus-box h5 {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .behavior-focus-box h5::before {
+            content: '🎯'; /* Ícone de Alvo */
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .behavior-focus-box p, .behavior-focus-box li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .behavior-focus-box ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: var(--space-sm);
+        }
+        
+        .behavior-focus-box ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .behavior-focus-box ul li::before {
+            content: '→'; /* Seta simples */
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+        /* Fim dos novos estilos */
+
+
+        /* 3. Rodapé (Footer) */
+        footer {
+            text-align: center;
+            padding: var(--space-md);
+            margin-top: var(--space-lg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            color: var(--text-subtle);
+            font-size: 0.9rem;
+        }
+
+        /* 5. Animações e Performance (.fade-in) */
+        
+        /* Define o estado inicial para o JS */
+        .fade-in {
+            opacity: 0;
+            /* A animação será aplicada pela classe 'is-visible' */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CLASSE FALTANTE: Aplica a animação quando o JS detecta a visibilidade */
+        .is-visible {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Estilos da Barra de Progresso */
+        .progress-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px; /* Altura da barra */
+            background-color: var(--border-color); /* Fundo da barra */
+            z-index: 2000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%; /* Começa em 0 */
+            background-color: var(--accent-color); /* Cor verde */
+            transition: width 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Progresso (Nova) -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="pageProgressBar"></div>
+    </div>
+
+    <!-- 3. Cabeçalho (Header) -->
+    <header>
+        <div class="container">
+            <!-- 2.1. Logo Principal -->
+            <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" 
+                 alt="Logo Live Consultoria" 
+                 class="logo"
+                 width="130" height="30"> <!-- Atributos de performance -->
+        </div>
+    </header>
+
+    <!-- 3. Conteúdo Principal (main) -->
+    <main>
+
+        <!-- Seção Hero (Título e Intro) -->
+        <section class="hero-section" aria-labelledby="manual-title">
+            <div class="container">
+                <h1 id="manual-title" class="fade-in">Manual Prático: Como Divulgar uma Vaga de Vendedor</h1>
+                <p class="subtitle fade-in">
+                    Um guia passo a passo para leigos: como definir a vaga, escrever o anúncio e atrair os candidatos certos (e evitar os errados).
+                </p>
+            </div>
+        </section>
+
+        <!-- Seção de Conteúdo (Passos) -->
+        <section class="content-section" aria-label="Guia Passo a Passo">
+            <div class="container">
+                <div class="steps-grid">
+
+                    <!-- Passo 1 -->
+                    <article class="card fade-in" aria-labelledby="passo1-title">
+                        <h3 id="passo1-title">Passo 1: Análise Preliminar e Definição do Perfil</h3>
+                        
+                        <h4>Objetivo</h4>
+                        <p>Esta é a fundação. Antes de escrever uma linha, você precisa saber EXATAMENTE quem está procurando e por quê. Contratar errado custa caro.</p>
+                        
+                        <h4>Ações Detalhadas</h4>
+
+                        <div class="behavior-focus-box">
+                            <h5>🎯 Foco no Perfil Comportamental (Início)</h5>
+                            <ul>
+                                <li>
+                                    <strong>Análise Interna (Hunter vs. Farmer):</strong> O que falta na equipe hoje? Precisamos de alguém mais "hunter" (caçador, focado em abrir novos clientes) ou "farmer" (fazendeiro, focado em cuidar e expandir clientes atuais)?
+                                </li>
+                                <li>
+                                    <strong>Defina os Motivadores:</strong> Vendedores de alta performance são movidos a quê? Desafios? Dinheiro? Reconhecimento? Crescimento na carreira? O anúncio deve refletir isso para atrair o perfil certo.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <ul>
+                            <li>Consulte "Stakeholders": Converse com as pessoas-chave. (ex.: o gerente de vendas, o RH, e até mesmo os vendedores de melhor performance para entender o que dá certo).</li>
+                            <li>Estabeleça critérios de filtragem: Separe o que é "obrigatório" do que é "desejável".
+                                <ul>
+                                    <li><strong>Obrigatório (Mínimo):</strong> O que a pessoa PRECISA ter para começar. (ex.: 2 anos de experiência em vendas por telefone).</li>
+                                    <li><strong>Desejável (Diferencial):</strong> O que seria ótimo se ela tivesse. (ex.: Conhecimento em CRM Salesforce, inglês intermediário).</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="explanation-box">
+                            <h5>Explicando Termos Técnicos</h5>
+                            <ul>
+                                <li><strong>Stakeholders:</strong> Qualquer pessoa que tenha interesse ou seja impactada pela vaga (gerentes, diretores, RH, a própria equipe).</li>
+                                <li><strong>CRM (Customer Relationship Management):</strong> Software para gerenciar o relacionamento e as negociações com clientes (ex.: Pipedrive, HubSpot, Salesforce). É o "painel de controle" do vendedor.</li>
+                                <li><strong>Pipeline (Funil de Vendas):</strong> As etapas visuais da negociação, desde o primeiro contato até o fechamento da venda.</li>
+                            </ul>
+                        </div>
+                        
+                        <h4>Dicas de Integração de Insights</h4>
+                        <p>Anúncios que pedem "habilidades analíticas" (saber ler dados no CRM, entender o pipeline) atraem candidatos mais preparados para vendas B2B (vendas complexas de empresa para empresa). Cuidado com expectativas irreais (pedir 10 anos de experiência para um cargo júnior) para não afastar bons talentos.</p>
+                    </article>
+
+                    <!-- Passo 2 -->
+                    <article class="card fade-in" aria-labelledby="passo2-title">
+                        <h3 id="passo2-title">Passo 2: Pesquisa de Mercado e Benchmarking</h3>
+                        
+                        <h4>Objetivo</h4>
+                        <p>Garantir que seu anúncio e sua vaga sejam competitivos. Você não está apenas selecionando; você também está sendo selecionado pelo candidato.</p>
+                        
+                        <h4>Ações Detalhadas</h4>
+                        <ul>
+                            <li>Pesquise anúncios similares no LinkedIn e Indeed. O que seus concorrentes oferecem? Qual a faixa salarial? Que benefícios eles destacam?</li>
+                            <li>Identifique o que faz um candidato escolher uma vaga em vez de outra (ex.: transparência na remuneração, oportunidades claras de crescimento, boa cultura de empresa).</li>
+                        </ul>
+
+                        <div class="tip-box">
+                            <h5>Dica de Credibilidade</h5>
+                            <p>Use o anúncio para "vender" sua empresa. Destaque conquistas e o posicionamento de mercado para construir credibilidade. (ex.: "Somos a empresa que mais cresceu no setor X nos últimos 2 anos" ou "Temos mais de 500 clientes satisfeitos em 3 países").</p>
+                        </div>
+                    </article>
+
+                    <!-- Passo 3 -->
+                    <article class="card fade-in" aria-labelledby="passo3-title">
+                        <h3 id="passo3-title">Passo 3: Estruturação do Conteúdo do Anúncio</h3>
+                        
+                        <h4>Objetivo</h4>
+                        <p>Organizar as informações de forma clara, honesta e persuasiva para filtrar os curiosos e atrair os qualificados.</p>
+
+                        <div class="tip-box">
+                            <h5>Sugestões de Preenchimento (Copie e Adapte)</h5>
+                            <ul>
+                                <li>
+                                    <strong>Título:</strong> Seja claro e direto. Evite jargões.
+                                    <p>Ex.: "Vendedor(a) Interno(a) - Software (B2B)" ou "Executivo(a) de Contas - Foco em Agências".<br>
+                                    <em>Evite: "Ninja de Vendas" ou "Rockstar Comercial".</em></p>
+                                </li>
+                                <li>
+                                    <strong>Visão Geral da Empresa:</strong>
+                                    <p>Ex.: "Somos uma empresa de tecnologia [descreva a área, ex.: 'focada em SaaS para o mercado financeiro'] e nossa cultura valoriza [descreva valores, ex.: 'colaboração e resultados']. Estamos buscando alguém para crescer conosco."</p>
+                                </li>
+                                <li>
+                                    <strong>Responsabilidades (O dia a dia):</strong> Use verbos de ação.
+                                    <p>Ex.: "Prospectar novos clientes através de cold calls e e-mails", "Gerenciar o funil de vendas no CRM", "Realizar demonstrações online do produto", "Negociar e fechar contratos", "Acompanhar métricas de performance".</p>
+                                </li>
+                                <li>
+                                    <strong>Requisitos (Técnicos):</strong> O que a pessoa precisa SABER FAZER.
+                                    <p>Ex.: "Experiência comprovada (mín. 2 anos) em vendas B2B", "Conhecimento em ferramentas de CRM (ex.: Pipedrive, HubSpot)", "Excel intermediário (para relatórios)".</p>
+                                </li>
+                                <li>
+                                    <strong>Condições (O que oferecemos):</strong> Seja transparente.
+                                    <p>Ex.: "Salário fixo (CLT) de R$ 3.000 + comissões (média de R$ 2.000/mês)", "Benefícios: Vale Refeição (R$ 30/dia), Plano de Saúde", "Modalidade: Híbrido (3 dias no escritório, 2 em casa)".</p>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="behavior-focus-box">
+                            <h5>🎯 Foco no Perfil Comportamental (Obrigatório)</h5>
+                            <ul>
+                                <li>
+                                    <strong>Requisitos (Comportamentais):</strong> Como a pessoa precisa SER. Frequentemente, isso é mais importante que a parte técnica, pois é mais difícil de treinar.
+                                    <p>Ex.: "Excelente comunicação verbal e escrita", "Proatividade para buscar metas", "Resiliência para lidar com 'não'", "Organização para gerenciar múltiplos leads", "Inteligência emocional para negociações", "Curiosidade para aprender".</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="explanation-box">
+                            <h5>Chamada para Diversidade (Importante!)</h5>
+                            <p>A linguagem do anúncio pode incluir ou excluir pessoas. Use termos neutros para atrair talentos diversos.</p>
+                            <ul>
+                                <li>Use "Vendedor(a)" ou "Pessoa Vendedora".</li>
+                                <li>Evite termos "codificados" como gênero: substitua "agressivo" por "assertivo" ou "focado em resultados"; substitua "workaholic" por "comprometido" ou "diligente".</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Passo 4 -->
+                    <article class="card fade-in" aria-labelledby="passo4-title">
+                        <h3 id="passo4-title">Passo 4: Otimização para Visibilidade e Acessibilidade</h3>
+                        
+                        <h4>Objetivo</h4>
+                        <p>Fazer sua vaga ser encontrada pelas pessoas certas no Google e no LinkedIn.</p>
+                        
+                        <h4>Ações Detalhadas</h4>
+                        <ul>
+                            <li>Incorpore palavras-chave SEO (Otimização para Buscas). Pense: o que um candidato digitaria para achar essa vaga? (ex.: "vagas vendedor software SP", "vendedor CRM", "vendas B2B").</li>
+                            <li>Garanta "Mobile-friendliness". A maioria dos candidatos verá sua vaga pelo celular. O processo de aplicação precisa ser fácil de ler e completar no celular.</li>
+                            <li>Descreva o processo seletivo (ex.: "1. Análise de CV", "2. Bate-papo com RH", "3. Simulação de Vendas", "4. Entrevista com Gestor").</li>
+                        </ul>
+                    </article>
+
+                    <!-- Passo 5 -->
+                    <article class="card fade-in" aria-labelledby="passo5-title">
+                        <h3 id="passo5-title">Passo 5: Revisão, Publicação e Monitoramento</h3>
+                        
+                        <h4>Objetivo</h4>
+                        <p>Assegurar a qualidade final e medir se o anúncio está funcionando.</p>
+                        
+                        <h4>Ações Detalhadas</h4>
+                        <ul>
+                            <li>Revise clareza, gramática e conformidade legal (ex.: não peça informações que possam ser discriminatórias, como idade, estado civil ou religião).</li>
+                            <li>Publique nos canais onde seu candidato está:
+                                <ul class="nested-list">
+                                    <li>Plataformas principais (ex: LinkedIn, sites de emprego).</li>
+                                    <li>Redes sociais da própria empresa (Perfil do LinkedIn, Instagram).</li>
+                                    <li>Grupos de WhatsApp de recrutamento (muitas empresas de RH oferecem essa divulgação gratuitamente).</li>
+                                </ul>
+                            </li>
+                            <li>Acompanhe as métricas: Quantas pessoas viram? Quantas se candidataram? Dessas, quantas realmente tinham o perfil (taxa de qualificação)?</li>
+                        </ul>
+                        
+                        <div class="tip-box">
+                            <h5>Ajuste a Rota</h5>
+                            <p>Se você receber muitos currículos ruins, seu anúncio está vago demais (Passo 1 e 3 falharam). Se receber poucos currículos, seu anúncio pode estar pouco atraente ou a vaga pode estar com requisitos irreais (Passo 2 falhou).</p>
+                        </div>
+                    </article>
+
+                    <!-- Exemplo -->
+                    <article class="card fade-in" aria-labelledby="exemplo-title">
+                        <h3 id="exemplo-title">Exemplo de Anúncio Integrado (Modelo)</h3>
+                        <pre>
+**Vaga: Vendedor(a) Interno(a) - Setor de Tecnologia (SaaS)**
+
+**Sobre Nós:**
+Somos uma empresa inovadora em soluções digitais (SaaS) para o mercado de logística, valorizando a diversidade, a colaboração e o crescimento dos nossos times.
+
+**Suas Responsabilidades (O que você fará):**
+- Prospectar ativamente leads qualificados (B2B) através de e-mail, telefone e LinkedIn.
+- Gerenciar seu pipeline de vendas no CRM (Pipedrive), garantindo follow-ups constantes.
+- Realizar demonstrações online da nossa plataforma, entendendo a dor do cliente.
+- Negociar propostas e fechar novos negócios, focado em bater metas mensais.
+
+**O que buscamos (Requisitos Obrigatórios):**
+- Mínimo de 2 anos de experiência em vendas internas (Inside Sales), preferencialmente em B2B.
+- Experiência prática com alguma ferramenta de CRM (ex: Pipedrive, HubSpot, Salesforce).
+- Excelente comunicação (clara e persuasiva) e habilidade de negociação.
+- Proatividade e resiliência para lidar com um ciclo de vendas consultivo.
+
+**O que seria um diferencial (Desejável):**
+- Conhecimento no setor de Logística ou SaaS.
+- Inglês intermediário (para ler materiais).
+
+**O que oferecemos (Condições):**
+- Salário Fixo (CLT): R$ 3.000,00
+- Comissões agressivas e sem teto (média de ganhos R$ 2.500+)
+- Benefícios: Vale Refeição (R$ 32/dia), Plano de Saúde e Odontológico (100% pago).
+- Modalidade: Híbrido (3x por semana no escritório em [Cidade]).
+- Oportunidade real de crescimento (Plano de Carreira).
+
+**Nosso Processo:**
+1. Análise de CV
+2. Entrevista com RH
+3. Simulação de Vendas (Roleplay)
+4. Entrevista final com Gestor
+
+**Envie seu CV para rh @empresa.com.br com o assunto "Vaga Vendedor SaaS".**
+                        </pre>
+                    </article>
+
+                    <!-- Conclusão -->
+                    <article class="card fade-in" aria-labelledby="conclusao-title">
+                        <h3 id="conclusao-title">Conclusão: O Custo da Contratação Errada</h3>
+                        <p>Seguir este manual exige mais tempo no início (no planejamento), mas economiza um tempo enorme (e muito dinheiro) ao evitar a contratação de um perfil desalinhado. Um anúncio claro é o primeiro e mais importante filtro para construir uma equipe de vendas de alta performance.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 3. Rodapé (Footer) -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Live Consultoria. Todos os direitos reservados.</p>
+            <p>Desenvolvido por Cléber Donato</p>
+        </div>
+    </footer>
+
+    <!-- 5. Animações e Performance (JavaScript para IntersectionObserver) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Animação Fade-in ---
+            const targets = document.querySelectorAll('.fade-in');
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            const callback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(callback, options);
+            targets.forEach(target => {
+                observer.observe(target);
+            });
+
+            // --- Barra de Progresso ---
+            const progressBar = document.getElementById('pageProgressBar');
+            const updateProgressBar = () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                
+                // Evita divisão por zero se o conteúdo for menor que a tela
+                if (scrollHeight <= 0) {
+                    progressBar.style.width = '0%';
+                    return;
+                }
+
+                const scrolled = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrolled + "%";
+            };
+
+            // Adiciona o listener de scroll
+            window.addEventListener('scroll', updateProgressBar);
+            
+            // Chama uma vez no carregamento para o caso da página carregar no meio
+            updateProgressBar(); 
+        });
+    </script>
+
+</body>
+</html>
