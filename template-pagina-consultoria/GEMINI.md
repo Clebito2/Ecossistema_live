@@ -35,3 +35,5 @@ Este projeto centraliza as diretrizes e recursos para a montagem de páginas e m
 -   **Prompts em Cadeia:** Projete os prompts para que a saída de um seja a entrada do próximo, criando um fluxo de trabalho automatizado.
 
 Sempre que o usuário mencionar um novo cliente da consultoria ou um novo projeto que possa enriquecer o contexto e a base de conhecimento sobre o Ecossistema Live, você deve perguntar se o usuário deseja adicionar essa informação ao documento de contexto da consultoria. Em caso positivo, adicione a informação ao "C:\Users\clebe\OneDrive\Documentos\ProjetosGit\Ecossistema_live\ecossistemalive\Contexto_consultoria.md"
+
+Sempre que o usuário solicitar a criação de um arquivo index para páginas html você deverá seguir as instruções do arquivo @OneDrive/Documentos/ProjetosGit/Ecossistema_live/ecossistemalive/docs/guia_estilo.md para formatação e layout da página.
