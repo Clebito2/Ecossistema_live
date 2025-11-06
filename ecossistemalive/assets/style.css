@@ -1,0 +1,97 @@
+:root {
+    --primary-bg: #06192a;
+    --card-bg: #0A243D;
+    --accent-color: #00e800;
+    --text-primary: #ffffff;
+    --text-muted: #cccccc;
+    --text-subtle: #a0a0a0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Merriweather', serif;
+    --font-size-base: 1.1rem;
+    --font-size-h3: 1.5rem;
+    --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+    --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    background-color: var(--primary-bg);
+    background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+    background-attachment: fixed;
+    margin: 0;
+    padding: var(--space-md);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-sm);
+}
+
+h1, h2, h3 {
+    color: var(--accent-color);
+    text-shadow: var(--accent-glow);
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: var(--space-md);
+    border-radius: 12px;
+    margin-bottom: var(--space-md);
+}
+
+textarea, pre {
+    width: 100%;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--space-sm);
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+button {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.is-visible {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+    display: none;
+}

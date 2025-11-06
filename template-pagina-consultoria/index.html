@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Consultoria - Transformando Potencial em Performance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #06192a;
+            --card-bg: #0A243D;
+            --accent-color: #00e800;
+            --text-primary: #ffffff;
+            --text-muted: #cccccc;
+            --text-subtle: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+            --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            background-color: var(--primary-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-sm);
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(6, 25, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+        }
+        .logo-img {
+            max-height: 40px;
+            width: auto;
+        }
+        main {
+            padding-top: calc(var(--space-xl) + 60px);
+        }
+        section {
+            padding: var(--space-xl) 0;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: var(--space-md);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), var(--accent-glow);
+        }
+        .card:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 4px;
+        }
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: var(--space-md) 0;
+            text-align: center;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .is-visible {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <img class="logo-img" src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" alt="Logo Principal da Live Consultoria" loading="lazy">
+        </div>
+    </header>
+    <main>
+        <section class="container">
+            <div class="fade-in">
+                <h1>Transformando Potencial em Performance</h1>
+                <p>A Live Consultoria é especialista em destravar o potencial do seu negócio, otimizando processos, qualificando equipes e impulsionando resultados.</p>
+            </div>
+        </section>
+        <section id="clientes" class="container">
+            <h2 class="fade-in">Nossos Clientes</h2>
+            <div class="clientes-grid fade-in">
+                <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/LOGO%20VOX.png" alt="Logo Vox2you" loading="lazy">
+                <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20okamoto.png" alt="Logo Okamoto" loading="lazy">
+                <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20Casa%20dibs.png" alt="Logo Casa Dibs" loading="lazy">
+                <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20TCE.png" alt="Logo TCE-RO" loading="lazy">
+                <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Tecno%20IT.png?raw=true" alt="Logo TecnolT" loading="lazy">
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <img class="logo-img" src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-34.png" alt="Logo Live Consultoria" loading="lazy" style="margin-bottom: 10px;">
+            <p>Live Consultoria Empresarial</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
